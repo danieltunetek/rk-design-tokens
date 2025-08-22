@@ -5,12 +5,12 @@
   "style": "dist/brand-1.css",
   "files": ["dist/"],
   "scripts": {
-    "build": "npx @digdir/designsystemet@latest tokens build && mv design-tokens-build dist"
+    "build": "npx @digdir/designsystemet@1.3.0 tokens build && mv design-tokens-build dist"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
-    "@digdir/designsystemet": "1.0.5"
+    "@digdir/designsystemet": "1.3.0"
   }
 }
