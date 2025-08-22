@@ -5,7 +5,7 @@
   "style": "design-tokens-build/brand-1.css",
   "files": ["design-tokens-build/"],
   "scripts": {
-    "build": "npx @digdir/designsystemet@latest tokens build"
+    "build": "designsystemet tokens build"
   },
   "publishConfig": {
     "access": "public"
