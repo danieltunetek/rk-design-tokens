@@ -9,13 +9,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
+      id-token: write # Required for trusted publishing
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,27 +28,7 @@ jobs:
       - name: Build tokens
         run: npm run build
 
-      - name: Configure Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Commit, Push, and Publish
-        id: publish_step
-        run: |
-          git add --force design-tokens-build/
-          
-          # This command exits with 1 if there are changes, 0 if not.
-          # The "!" inverts this, so the block runs if there are changes.
-          if ! git diff-index --quiet HEAD; then
-            echo "Changes detected. Committing and publishing."
-            new_version=$(npm version patch --no-git-tag-version)
-            git commit -m "chore(release): publish new tokens ${new_version}"
-            git tag ${new_version}
-            git push --follow-tags
-            npm publish
-          else
-            echo "No changes to publish."
-          fi
+      - name: Publish to npm
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
