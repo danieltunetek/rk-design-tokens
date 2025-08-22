@@ -3,7 +3,7 @@ name: Publish Design Tokens
 on:
   push:
     branches:
-      - master # This is set to your branch name
+      - master
 
 jobs:
   publish:
@@ -34,15 +34,22 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Check for changes in dist directory
-        id: git_status
-        run: echo "changed=$(git status --porcelain dist)" >> $GITHUB_OUTPUT
-
-      - name: Bump version and publish
-        if: steps.git_status.outputs.changed
+      - name: Commit, Push, and Publish
         run: |
-          git add dist/
-          npm version patch -m "chore(release): publish new tokens v%s"
+          # Forcefully add the dist folder, overriding .gitignore
+          git add --force dist/
+
+          # Check if there are any changes to commit
+          if [[ -z $(git status --porcelain) ]]; then
+            echo "No changes to publish."
+            exit 0
+          fi
+
+          # Get the new version number before creating the tag
+          new_version=$(npm version patch --no-git-tag-version)
+
+          git commit -m "chore(release): publish new tokens ${new_version}"
+          git tag ${new_version}
           git push --follow-tags
           npm publish
         env:
