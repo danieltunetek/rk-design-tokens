@@ -2,10 +2,10 @@
   "name": "@rk-designsystem/css",
   "version": "1.0.0",
   "description": "Design tokens for the Røde Kors design system.",
-  "style": "dist/brand-1.css",
-  "files": ["dist/"],
+  "style": "design-tokens-build/brand-1.css",
+  "files": ["design-tokens-build/"],
   "scripts": {
-    "build": "npx @digdir/designsystemet@latest tokens build && mv design-tokens-build dist"
+    "build": "npx @digdir/designsystemet@latest tokens build"
   },
   "publishConfig": {
     "access": "public"

@@ -36,8 +36,8 @@ jobs:
 
       - name: Commit, Push, and Publish
         run: |
-          # Forcefully add the dist folder, overriding .gitignore
-          git add --force dist/
+          # Forcefully add the correct folder, overriding .gitignore
+          git add --force design-tokens-build/
 
           # Check if there are any changes to commit
           if [[ -z $(git status --porcelain) ]]; then
