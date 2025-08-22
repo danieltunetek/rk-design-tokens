@@ -5,7 +5,7 @@
   "style": "dist/brand-1.css",
   "files": ["dist/"],
   "scripts": {
-    "build": "npx @digdir/designsystemet@1.0.5 tokens build && mv design-tokens-build dist"
+    "build": "npx @digdir/designsystemet@latest tokens build && mv design-tokens-build dist"
   },
   "publishConfig": {
     "access": "public"
