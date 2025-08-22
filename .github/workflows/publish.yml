@@ -1,0 +1,49 @@
+name: Publish Design Tokens
+
+on:
+  push:
+    branches:
+      - master # This is set to your branch name
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build tokens
+        run: npm run build
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Check for changes in dist directory
+        id: git_status
+        run: echo "changed=$(git status --porcelain dist)" >> $GITHUB_OUTPUT
+
+      - name: Bump version and publish
+        if: steps.git_status.outputs.changed
+        run: |
+          git add dist/
+          npm version patch -m "chore(release): publish new tokens v%s"
+          git push --follow-tags
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
