@@ -3,7 +3,7 @@ name: Publish Design Tokens
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   publish:
