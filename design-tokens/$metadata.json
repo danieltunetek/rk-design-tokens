@@ -18,6 +18,7 @@
     "semantic/color",
     "semantic/modes/main-color/primary",
     "semantic/modes/main-color/accent",
-    "semantic/style"
+    "semantic/style",
+    "$designsystemet"
   ]
 }
