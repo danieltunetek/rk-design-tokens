@@ -9,7 +9,7 @@ design-tokens: v1.0.5
 
 @layer ds.theme.color-scheme.light {
 :root, [data-color-scheme="light"] {
-  --ds-color-primary-background-default: #ffffff;
+  --ds-color-primary-background-default: #55e9db;
   --ds-color-primary-background-tinted: #fcf1f0;
   --ds-color-primary-surface-default: #ffffff;
   --ds-color-primary-surface-tinted: #fae4e2;
@@ -130,7 +130,7 @@ design-tokens: v1.0.5
  
 @media (prefers-color-scheme: light) {
   [data-color-scheme="auto"] {
-  --ds-color-primary-background-default: #ffffff;
+  --ds-color-primary-background-default: #55e9db;
   --ds-color-primary-background-tinted: #fcf1f0;
   --ds-color-primary-surface-default: #ffffff;
   --ds-color-primary-surface-tinted: #fae4e2;
