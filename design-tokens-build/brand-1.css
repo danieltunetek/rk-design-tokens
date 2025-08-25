@@ -24,7 +24,7 @@ design-tokens: v1.0.5
   --ds-color-primary-base-hover: #b12419;
   --ds-color-primary-base-active: #8e1d14;
   --ds-color-primary-base-contrast-subtle: #fdf4f4;
-  --ds-color-primary-base-contrast-default: #ffffff;
+  --ds-color-primary-base-contrast-default: #4653ff;
   --ds-color-accent-background-default: #ffffff;
   --ds-color-accent-background-tinted: #fef1f1;
   --ds-color-accent-surface-default: #ffffff;
@@ -56,7 +56,7 @@ design-tokens: v1.0.5
   --ds-color-neutral-base-hover: #313d4d;
   --ds-color-neutral-base-active: #444f5d;
   --ds-color-neutral-base-contrast-subtle: #babec4;
-  --ds-color-neutral-base-contrast-default: #ffffff;
+  --ds-color-neutral-base-contrast-default: #7982ff;
   --ds-color-success-background-default: #ffffff;
   --ds-color-success-background-tinted: #ecf6ee;
   --ds-color-success-surface-default: #ffffff;
@@ -145,7 +145,7 @@ design-tokens: v1.0.5
   --ds-color-primary-base-hover: #b12419;
   --ds-color-primary-base-active: #8e1d14;
   --ds-color-primary-base-contrast-subtle: #fdf4f4;
-  --ds-color-primary-base-contrast-default: #ffffff;
+  --ds-color-primary-base-contrast-default: #4653ff;
   --ds-color-accent-background-default: #ffffff;
   --ds-color-accent-background-tinted: #fef1f1;
   --ds-color-accent-surface-default: #ffffff;
@@ -177,7 +177,7 @@ design-tokens: v1.0.5
   --ds-color-neutral-base-hover: #313d4d;
   --ds-color-neutral-base-active: #444f5d;
   --ds-color-neutral-base-contrast-subtle: #babec4;
-  --ds-color-neutral-base-contrast-default: #ffffff;
+  --ds-color-neutral-base-contrast-default: #7982ff;
   --ds-color-success-background-default: #ffffff;
   --ds-color-success-background-tinted: #ecf6ee;
   --ds-color-success-surface-default: #ffffff;
