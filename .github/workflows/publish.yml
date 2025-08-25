@@ -9,12 +9,15 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      id-token: write # Required for trusted publishing
+      contents: write # Change back to write to allow pushing
+      id-token: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # We need to fetch all history to correctly version
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -27,6 +30,18 @@ jobs:
 
       - name: Build tokens
         run: npm run build
+
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Bump version and push changes
+        run: |
+          # This command bumps the patch version in package.json, creates a commit, and a tag
+          npm version patch -m "chore(release): publish new tokens v%s"
+          # Push the new commit and tag back to the main branch
+          git push --follow-tags
 
       - name: Publish to npm
         run: npm publish --access public
