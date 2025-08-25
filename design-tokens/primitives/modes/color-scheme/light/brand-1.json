@@ -63,7 +63,7 @@
       },
       "16": {
         "$type": "color",
-        "$value": "#ffffff"
+        "$value": "#4653ff"
       }
     },
     "accent": {
@@ -195,7 +195,7 @@
       },
       "16": {
         "$type": "color",
-        "$value": "#ffffff"
+        "$value": "#7982ff"
       }
     }
   }
