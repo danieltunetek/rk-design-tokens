@@ -73,7 +73,7 @@ design-tokens: v1.0.5
   --ds-color-success-base-active: #045a10;
   --ds-color-success-base-contrast-subtle: #fafdfb;
   --ds-color-success-base-contrast-default: #ffffff;
-  --ds-color-danger-background-default: #ffffff;
+  --ds-color-danger-background-default: #52ffc3;
   --ds-color-danger-background-tinted: #fbf1f1;
   --ds-color-danger-surface-default: #ffffff;
   --ds-color-danger-surface-tinted: #f8e4e4;
@@ -194,7 +194,7 @@ design-tokens: v1.0.5
   --ds-color-success-base-active: #045a10;
   --ds-color-success-base-contrast-subtle: #fafdfb;
   --ds-color-success-base-contrast-default: #ffffff;
-  --ds-color-danger-background-default: #ffffff;
+  --ds-color-danger-background-default: #52ffc3;
   --ds-color-danger-background-tinted: #fbf1f1;
   --ds-color-danger-surface-default: #ffffff;
   --ds-color-danger-surface-tinted: #f8e4e4;
