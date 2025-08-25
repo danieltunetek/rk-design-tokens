@@ -41,7 +41,7 @@ design-tokens: v1.0.5
   --ds-color-accent-base-active: #cfc5c5;
   --ds-color-accent-base-contrast-subtle: #595454;
   --ds-color-accent-base-contrast-default: #000000;
-  --ds-color-neutral-background-default: #ffffff;
+  --ds-color-neutral-background-default: #32ff00;
   --ds-color-neutral-background-tinted: #f3f4f4;
   --ds-color-neutral-surface-default: #ffffff;
   --ds-color-neutral-surface-tinted: #e7e9ea;
@@ -121,7 +121,7 @@ design-tokens: v1.0.5
   --ds-color-warning-base-active: #b27614;
   --ds-color-warning-base-contrast-subtle: #271a04;
   --ds-color-warning-base-contrast-default: #000000;
-  --ds-color-focus-inner: #ffffff;
+  --ds-color-focus-inner: #32ff00;
   --ds-color-focus-outer: #1f2c3d;
   --ds-link-color-visited: #663299;
 
@@ -162,7 +162,7 @@ design-tokens: v1.0.5
   --ds-color-accent-base-active: #cfc5c5;
   --ds-color-accent-base-contrast-subtle: #595454;
   --ds-color-accent-base-contrast-default: #000000;
-  --ds-color-neutral-background-default: #ffffff;
+  --ds-color-neutral-background-default: #32ff00;
   --ds-color-neutral-background-tinted: #f3f4f4;
   --ds-color-neutral-surface-default: #ffffff;
   --ds-color-neutral-surface-tinted: #e7e9ea;
@@ -242,7 +242,7 @@ design-tokens: v1.0.5
   --ds-color-warning-base-active: #b27614;
   --ds-color-warning-base-contrast-subtle: #271a04;
   --ds-color-warning-base-contrast-default: #000000;
-  --ds-color-focus-inner: #ffffff;
+  --ds-color-focus-inner: #32ff00;
   --ds-color-focus-outer: #1f2c3d;
   --ds-link-color-visited: #663299;
 
