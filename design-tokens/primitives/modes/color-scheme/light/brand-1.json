@@ -3,7 +3,7 @@
     "primary": {
       "1": {
         "$type": "color",
-        "$value": "#55e9db"
+        "$value": "#fff"
       },
       "2": {
         "$type": "color",
@@ -63,7 +63,7 @@
       },
       "16": {
         "$type": "color",
-        "$value": "#4653ff"
+        "$value": "#fff"
       }
     },
     "accent": {
@@ -135,7 +135,7 @@
     "neutral": {
       "1": {
         "$type": "color",
-        "$value": "#32ff00"
+        "$value": "#fff"
       },
       "2": {
         "$type": "color",
@@ -195,7 +195,7 @@
       },
       "16": {
         "$type": "color",
-        "$value": "#7982ff"
+        "$value": "#fff"
       }
     }
   }
