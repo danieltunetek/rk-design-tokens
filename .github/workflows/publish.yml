@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@vv4
+        uses: actions/checkout@v4
         with:
           # Fetch all history to prevent "branch is behind" errors
           fetch-depth: 0
