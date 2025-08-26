@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@vv4
         with:
           # Fetch all history to prevent "branch is behind" errors
           fetch-depth: 0
@@ -62,10 +62,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # --- ADD THIS NEW STEP AT THE END ---
-      - name: Trigger Vercel Project Update
+      - name: Trigger rk-designsystem Update
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT }}
-          repository: danieltunetek/rk-designsystem # <-- IMPORTANT: VERIFY THIS IS CORRECT
+          repository: danieltunetek/rk-designsystem # The first project
+          event-type: new-design-tokens-version
+
+      - name: Trigger rk-conference-demo Update
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: danieltunetek/rk-conference-demo # The new project
           event-type: new-design-tokens-version
