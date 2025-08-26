@@ -135,7 +135,7 @@
     "neutral": {
       "1": {
         "$type": "color",
-        "$value": "#a61414"
+        "$value": "#fff"
       },
       "2": {
         "$type": "color",
