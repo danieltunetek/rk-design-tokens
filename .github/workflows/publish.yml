@@ -61,3 +61,11 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # --- ADD THIS NEW STEP AT THE END ---
+      - name: Trigger Vercel Project Update
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: danieltunetek/rk-designsystem # <-- IMPORTANT: VERIFY THIS IS CORRECT
+          event-type: new-design-tokens-version
