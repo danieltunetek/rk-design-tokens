@@ -12,7 +12,7 @@ design-tokens: v1.0.5
   --ds-color-primary-background-default: #fff;
   --ds-color-primary-background-tinted: #fcf1f0;
   --ds-color-primary-surface-default: #ffffff;
-  --ds-color-primary-surface-tinted: #fae4e2;
+  --ds-color-primary-surface-tinted: #303030;
   --ds-color-primary-surface-hover: #f6d2cf;
   --ds-color-primary-surface-active: #f2bdb9;
   --ds-color-primary-border-subtle: #eeaba6;
@@ -133,7 +133,7 @@ design-tokens: v1.0.5
   --ds-color-primary-background-default: #fff;
   --ds-color-primary-background-tinted: #fcf1f0;
   --ds-color-primary-surface-default: #ffffff;
-  --ds-color-primary-surface-tinted: #fae4e2;
+  --ds-color-primary-surface-tinted: #303030;
   --ds-color-primary-surface-hover: #f6d2cf;
   --ds-color-primary-surface-active: #f2bdb9;
   --ds-color-primary-border-subtle: #eeaba6;
