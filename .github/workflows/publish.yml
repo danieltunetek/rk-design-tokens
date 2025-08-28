@@ -15,7 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Fetch all history to prevent "branch is behind" errors
           fetch-depth: 0
 
       - name: Setup Node.js
@@ -37,27 +36,16 @@ jobs:
 
       - name: Commit build artifacts and Publish
         run: |
-          # Forcefully add the build output, overriding .gitignore
           git add --force design-tokens-build/
-
-          # Check if the build produced any changes
           if ! git diff-index --quiet HEAD; then
             echo "Changes detected in build artifacts. Committing them."
-            # Commit 1: The new token files
             git commit -m "build: generate new token assets"
           else
             echo "No changes in build artifacts. Nothing to publish."
             exit 0
           fi
-
-          # Now that the directory is clean, create the version commit
-          # Commit 2: The version bump
           npm version patch -m "chore(release): publish new tokens v%s"
-
-          # Push both commits and the new tag back to the main branch
           git push --follow-tags
-
-          # Finally, publish the new version to npm
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -66,12 +54,19 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT }}
-          repository: danieltunetek/rk-designsystem # The first project
+          repository: danieltunetek/rk-designsystem
           event-type: new-design-tokens-version
 
       - name: Trigger rk-conference-demo Update
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT }}
-          repository: danieltunetek/rk-conference-demo # The new project
+          repository: danieltunetek/rk-conference-demo
+          event-type: new-design-tokens-version
+
+      - name: Trigger norwegianredcross/DesignSystem Update
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: norwegianredcross/DesignSystem # The new project
           event-type: new-design-tokens-version
