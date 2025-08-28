@@ -267,7 +267,7 @@
     "red": {
       "1": {
         "$type": "color",
-        "$value": "#ffffff"
+        "$value": "#fff"
       },
       "2": {
         "$type": "color",

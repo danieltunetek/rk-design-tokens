@@ -1,5 +1,5 @@
 {
-  "theme": {
+  "brand-1": {
     "font-family": {
       "$type": "fontFamilies",
       "$value": "Inter"
