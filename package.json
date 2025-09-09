@@ -1,6 +1,6 @@
 {
   "name": "rk-design-tokens",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "Design tokens for the Røde Kors design system.",
   "style": "design-tokens-build/brand-1.css",
   "files": [
