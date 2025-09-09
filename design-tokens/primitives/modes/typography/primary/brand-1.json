@@ -2,7 +2,7 @@
   "brand-1": {
     "font-family": {
       "$type": "fontFamilies",
-      "$value": "Source Sans 3"
+      "$value": "{font-family}"
     },
     "font-weight": {
       "medium": {
