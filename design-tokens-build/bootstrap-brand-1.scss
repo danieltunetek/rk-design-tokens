@@ -1,0 +1,31 @@
+// Bootstrap Overrides: Brand 1 Theme
+// Generated from design-tokens
+
+$link-color: #c5665a;
+$link-hover-color: #d89890;
+$primary: #dc4f44;
+$body-bg: #13181f;
+$light: #262e3a;
+$border-color: #7c8289;
+$body-color: #ebeced;
+$dark: #a6acb2;
+$success: #138d24;
+$danger: #d76e6e;
+$info: #2d85c9;
+$warning: #60400b;
+$line-height-base: 1.5;
+$font-family-base: Source Sans 3;
+$font-weight-base: 400;
+$border-radius: var(--ds-border-radius-base);
+$border-width: 1px;
+
+// Required Bootstrap Sass Map
+$theme-colors: (
+  "primary": #dc4f44,
+  "light": #262e3a,
+  "dark": #a6acb2,
+  "success": #138d24,
+  "danger": #d76e6e,
+  "info": #2d85c9,
+  "warning": #60400b,
+);
