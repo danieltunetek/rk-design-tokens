@@ -2,17 +2,95 @@
 
 This repository is the central source for all design tokens (colors, typography, spacing, etc.) for the Norwegian Red Cross's digital products. It acts as a single source of truth that automatically distributes style changes to all connected projects.
 
+---
+
+## How to Use These Tokens
+
+This package can be used in different ways depending on the component library you are working with.
+
+---
+
+### Using with Røde Kors Designsystem (`@digdir/designsystemet`)
+
+This is the primary way to use the tokens for official Røde Kors projects built with the React component library.
+
+#### 1. Installation
+
+You'll need three packages: the component library (`rk-designsystem`), the base styles from Digdir, and this theme package (`rk-design-tokens`).
+
+```bash
+npm install rk-designsystem @digdir/designsystemet-css rk-design-tokens
+```
+
+#### 2. Import CSS
+
+In your application's root layout file (e.g., layout.tsx), import the base stylesheet before the Røde Kors theme file. This order is crucial.
+
+TypeScript
+
+```ts
+// src/app/layout.tsx (or equivalent)
+
+import '@digdir/designsystemet-css/index.css';         // 1. Base component styles
+import 'rk-design-tokens/design-tokens-build/brand-1.css'; // 2. Røde Kors theme override
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="no">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### Using with Bootstrap (Sass)
+This package provides a dedicated Sass file to fully theme the Bootstrap framework, including support for light and dark modes.
+
+#### 1. Installation
+In addition to this package, your project must also have bootstrap and sass installed.
+
+```bash
+npm install bootstrap sass
+```
+
+#### 2. Import Sass Theme
+In your project's main Sass file (e.g., globals.scss), import the Røde Kors theme file before the main Bootstrap library.
+
+```scss
+// 1. Import the Røde Kors theme file for Bootstrap.
+// This contains all the necessary variable overrides.
+@import "rk-design-tokens/design-tokens-build/bootstrap-brand-1.scss";
+
+// 2. Import the main Bootstrap library.
+// Bootstrap will now compile using your custom theme.
+@import "bootstrap/scss/bootstrap";
+```
+
+#### 3. Enable Theme Switching
+To switch between light and dark modes, apply the data-bs-theme attribute to a parent element (like `<html>`). You can toggle this value with JavaScript.
+
+TypeScript
+
+```ts
+// Example in a Next.js layout.tsx
+
+// Sets the default theme to "light"
+export default function RootLayout({ children }) {
+  return (
+    <html lang="no" data-bs-theme="light">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
 ## End-to-End Design Token Automation Workflow
 
 ### Brief Explanation
-
-This workflow establishes a fully automated pipeline that connects our design process directly to our live production applications.
-
-When a designer updates the brand style in Figma, this system automatically builds, versions, and publishes a new style package to npm. It then signals our Vercel projects (`rk-designsystem` and `rk-conference-demo`), which automatically update themselves and redeploy with the new styles.
-
-The result is perfect brand consistency, dramatically increased development speed, and the empowerment of designers to make visual updates without needing a developer to manually intervene.
+This workflow establishes a fully automated pipeline that connects our design process directly to our live production applications. When a designer updates the brand style in Figma, this system automatically builds, versions, and publishes a new style package to npm. It then signals our Vercel projects, which automatically update themselves and redeploy with the new styles.
 
 ### Flowchart
+Code snippet
 
 ```mermaid
 graph TD
@@ -45,27 +123,32 @@ graph TD
 ### The Process in Detail
 
 #### Phase 1: A Designer Makes a Change (The "Publisher")
+This phase occurs within the rk-design-tokens repository.
 
-This phase occurs within the `rk-design-tokens` repository.
+Design in Figma: A designer makes a change to a color, font, or any other design token.
 
-1.  **Design in Figma:** A designer makes a change to a color, font, or any other design token.
-2.  **Push to GitHub:** Using the **Token Studio** plugin, the designer pushes the changes. This automatically commits the updated JSON files to the `main` branch of `rk-design-tokens`.
-3.  **Trigger the Publisher Workflow:** This push instantly triggers the GitHub Action defined in `.github/workflows/publish.yml`.
-4.  **Build & Commit Artifacts:** The workflow runs `npm run build`, which converts the JSON files into a finished `design-tokens-build/` folder with CSS. It then commits this newly generated folder to the repository.
-5.  **Versioning & Release:** With the build artifacts committed, the workflow runs `npm version patch`. This automatically increases the version number in `package.json` (e.g., from `1.0.8` to `1.0.9`), creates a new "release" commit, and tags it.
-6.  **Publish to npm:** Finally, the workflow pushes both new commits and the tag to GitHub, and publishes the new version of the `rk-design-tokens` package to the npm registry.
+Push to GitHub: Using the Token Studio plugin, the designer pushes the changes. This automatically commits the updated JSON files to the main branch.
+
+Trigger the Publisher Workflow: This push instantly triggers the GitHub Action defined in .github/workflows/publish.yml.
+
+Build & Commit Artifacts: The workflow runs npm run build to generate CSS from the JSON files and commits the results.
+
+Versioning & Release: The workflow runs npm version patch to bump the version, create a release commit, and tag it.
+
+Publish to npm: Finally, the workflow publishes the new version of the package to the npm registry.
 
 #### Phase 2: Notifying the Applications (The "Signal")
-
-7.  **Send a Dispatch Signal:** After a successful publish, the final step of the workflow sends a `repository_dispatch` signal to both the `rk-designsystem` and `rk-conference-demo` repositories. This is like ringing a doorbell to tell them a new version is ready.
+Send a Dispatch Signal: After a successful publish, the workflow sends a repository_dispatch signal to consumer projects like rk-designsystem to notify them of the new version.
 
 #### Phase 3: Automatic Update and Redeployment (The "Consumers")
+This phase runs in parallel for consumer projects.
 
-This phase runs in parallel for both of your Vercel projects.
+Trigger the Consumer Workflow: The dispatch signal starts an "Update" workflow in the consumer projects.
 
-8.  **Trigger the Consumer Workflow:** The `repository_dispatch` signal is received, which starts the "Update Design Tokens and Redeploy" workflow in each of the consumer projects.
-9.  **Update Dependencies:** The workflow runs `npm update rk-design-tokens`, which fetches the latest version from npm and updates the project's `package.json` and `package-lock.json` files.
-10. **Commit & Push the Update:** The workflow commits these updated files back to the `main` branch with a message like "chore(deps): update rk-design-tokens to latest".
-11. **Vercel Auto-Deploys:** Vercel's Git integration is continuously monitoring the `main` branch. It sees this new commit from the bot and automatically starts a brand new build and deployment of the application.
+Update Dependencies: The workflow runs npm update rk-design-tokens to fetch the latest version.
 
-Within minutes of the designer pushing a change in Figma, both live websites are updated with the new styles, completing the fully automated, end-to-end cycle.
+Commit & Push the Update: The workflow commits the updated package-lock.json file.
+
+Vercel Auto-Deploys: Vercel's Git integration detects the new commit and automatically starts a new deployment.
+
+Within minutes of the designer pushing a change in Figma, all live websites are updated with the new styles, completing the fully automated, end-to-end cycle.
