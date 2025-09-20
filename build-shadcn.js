@@ -59,7 +59,7 @@ function transformTokens() {
   console.log('🚀 Starting token transformation...');
 
   const inputPath = path.join(__dirname, 'design-tokens-build', 'brand-1.css');
-  const outputPath = path.join(__dirname, 'dist', 'shadcn-theme.css');
+  const outputPath = path.join(__dirname, 'design-tokens-build', 'shadcn-theme.css');
 
   if (!fs.existsSync(inputPath)) {
     console.error(`❌ Error: Input file not found at ${inputPath}`);
