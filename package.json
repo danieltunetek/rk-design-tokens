@@ -4,11 +4,14 @@
   "description": "Design tokens for the Røde Kors design system.",
   "style": "design-tokens-build/brand-1.css",
   "files": [
-    "design-tokens-build/"
+    "design-tokens-build/",
+    "dist/"
   ],
   "scripts": {
-    "build": "designsystemet tokens build",
-    "build:bootstrap": "node build-bootstrap.js"
+    "build:tokens": "designsystemet tokens build",
+    "build:bootstrap": "node build-bootstrap.js",
+    "build:shadcn": "node build-shadcn.js",
+    "build": "npm run build:tokens && npm run build:bootstrap && npm run build:shadcn"
   },
   "publishConfig": {
     "access": "public"
@@ -17,6 +20,8 @@
     "@digdir/designsystemet": "latest",
     "style-dictionary": "^3.9.2",
     "postcss": "^8.4.38",
-    "lodash.set": "^4.3.2"
+    "lodash.set": "^4.3.2",
+    "culori": "^0.20.0"
   }
 }
+
