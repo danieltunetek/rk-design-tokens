@@ -37,15 +37,12 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Commit, Publish to NPM, and Set Output
+      - name: Commit and Publish to NPM if Changed
         id: publish_step
         run: |
-          # Stage all potential changes from the build process
           git add --force design-tokens-build/ dist/
-
-          # Check if there are any actual files staged for commit
           if git diff --staged --quiet; then
-            echo "No changes in build artifacts. Nothing to publish."
+            echo "No changes in build artifacts. Skipping NPM publish."
             echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
             echo "Changes detected. Committing and publishing to NPM."
@@ -59,10 +56,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Upload artifact for GitHub Pages
-        if: steps.publish_step.outputs.changes_detected == 'true'
+        # This step now runs on every push to ensure there's always an artifact to deploy
         uses: actions/upload-pages-artifact@v3
         with:
-          # This uploads the contents of the design-tokens-build directory
           path: './design-tokens-build'
 
       - name: Trigger rk-designsystem Update
@@ -92,7 +88,7 @@ jobs:
   # Job 2: Deploy the artifact to GitHub Pages
   deploy:
     needs: publish
-    if: needs.publish.outputs.changes_detected == 'true'
+    # This job now runs on every push, ensuring your Pages site is always available
     permissions:
       pages: write      # to deploy to Pages
       id-token: write   # to verify the deployment originates from an authentic source
@@ -104,5 +100,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
 
