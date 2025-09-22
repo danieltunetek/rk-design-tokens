@@ -11,7 +11,8 @@
     "build:tokens": "designsystemet tokens build",
     "build:bootstrap": "node build-bootstrap.js",
     "build:shadcn": "node build-shadcn.js",
-    "build": "npm run build:tokens && npm run build:bootstrap && npm run build:shadcn"
+    "build:metadata": "node build-metadata.js",
+    "build": "npm run build:tokens && npm run build:bootstrap && npm run build:shadcn && npm run build:metadata"
   },
   "publishConfig": {
     "access": "public"
@@ -24,3 +25,4 @@
     "culori": "^4.0.2"
   }
 }
+
