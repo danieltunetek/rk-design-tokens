@@ -1,4 +1,4 @@
-name: Publish Design Tokens
+name: Publish Design Tokens and Deploy to Pages
 
 on:
   push:
@@ -6,10 +6,13 @@ on:
       - main
 
 jobs:
+  # Job 1: Build tokens and publish to NPM
   publish:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      changes_detected: ${{ steps.publish_step.outputs.changes_detected }}
 
     steps:
       - name: Checkout repository
@@ -34,23 +37,34 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-      - name: Commit build artifacts and Publish
+      - name: Commit, Publish to NPM, and Set Output
+        id: publish_step
         run: |
-          git add --force design-tokens-build/ dist/
-          if ! git diff-index --quiet HEAD; then
-            echo "Changes detected in build artifacts. Committing them."
+          # Check if there are any changes in the build artifacts
+          if ! git diff-index --quiet HEAD design-tokens-build/ dist/; then
+            echo "Changes detected in build artifacts. Committing and publishing."
+            git add --force design-tokens-build/ dist/
             git commit -m "build: generate new token assets"
+            npm version patch -m "chore(release): publish new tokens v%s"
+            git push --follow-tags
+            npm publish
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
           else
             echo "No changes in build artifacts. Nothing to publish."
-            exit 0
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
           fi
-          npm version patch -m "chore(release): publish new tokens v%s"
-          git push --follow-tags
-          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Upload artifact for GitHub Pages
+        if: steps.publish_step.outputs.changes_detected == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # This uploads the contents of the design-tokens-build directory
+          path: './design-tokens-build'
+
       - name: Trigger rk-designsystem Update
+        if: steps.publish_step.outputs.changes_detected == 'true'
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT }}
@@ -58,6 +72,7 @@ jobs:
           event-type: new-design-tokens-version
 
       - name: Trigger rk-conference-demo Update
+        if: steps.publish_step.outputs.changes_detected == 'true'
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT }}
@@ -65,8 +80,27 @@ jobs:
           event-type: new-design-tokens-version
 
       - name: Trigger norwegianredcross/DesignSystem Update
+        if: steps.publish_step.outputs.changes_detected == 'true'
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT }}
           repository: norwegianredcross/DesignSystem # The new project
           event-type: new-design-tokens-version
+
+  # Job 2: Deploy the artifact to GitHub Pages
+  deploy:
+    needs: publish
+    if: needs.publish.outputs.changes_detected == 'true'
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an authentic source
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+ 
