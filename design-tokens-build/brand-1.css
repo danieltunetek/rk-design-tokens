@@ -601,7 +601,8 @@ design-tokens: v[object Object]
   --ds-color-neutral-surface-hover: #2e3641;
   --ds-color-neutral-surface-active: #3c444e;
   --ds-color-neutral-border-subtle: #49515a;
-   --ds-color-neutral-border-strong: #a4a8ad;
+  --ds-color-neutral-border-default: #7c8289;
+  --ds-color-neutral-border-strong: #a4a8ad;
   --ds-color-neutral-text-subtle: #a4a8ad;
   --ds-color-neutral-text-default: #ebeced;
   --ds-color-neutral-base-default: #a6acb2;
