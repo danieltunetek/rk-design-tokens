@@ -30,8 +30,8 @@ const tokenMap = {
 
 // --- Main Build Function ---
 async function build() {
-  const sourceCssPath = path.join('design-tokens-build', 'brand-1.css');
-  const outputScssPath = path.join('design-tokens-build', 'bootstrap-brand-1.scss');
+  const sourceCssPath = path.join('design-tokens-build', 'theme.css');
+  const outputScssPath = path.join('design-tokens-build', 'bootstrap-theme.scss');
 
   if (!fs.existsSync(sourceCssPath)) {
     console.error(`Error: Source file not found at ${sourceCssPath}. Make sure 'npm run build' runs first.`);
@@ -149,3 +149,4 @@ $theme-colors: (
 }
 
 build();
+
